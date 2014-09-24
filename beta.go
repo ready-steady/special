@@ -21,14 +21,14 @@ import (
 // recurrence relation
 //
 //                     Γ(p+q)
-//     I(x, p, q) = ----------- x^p (1-x)^(q-1) + I(x, p+1, q-1)
+//     I(x, p, q) = ----------- x^p (1 - x)^(q-1) + I(x, p+1, q-1)
 //                  Γ(p+1) Γ(q)
 //
 // and then reductions are continued by “raising p” with the recurrence
 // relation
 //
 //                          Γ(p+q)
-//     I(x, p+s, q-s) = --------------- x^(p+s) (1-x)^(q-s) + I(x, p+s+1, q-s)
+//     I(x, p+s, q-s) = --------------- x^(p+s) (1 - x)^(q-s) + I(x, p+s+1, q-s)
 //                      Γ(p+s+1) Γ(q-s)
 //
 // If s is not a positive integer, reductions are made only by “raising p.”
@@ -122,27 +122,31 @@ func IncBeta(x, p, q, logB float64) float64 {
 //
 // An approximation x₀ to x if found from (cf. Scheffé and Tukey, 1944)
 //
-//     (1 + x₀)/(1 - x₀) = (4*p + 2*q - 2)/χ²(α)
+//     1 + x₀   4p + 2q - 2
+//     ------ = -----------
+//     1 - x₀      χ²(α)
 //
-// where χ²(α) is the upper α point of the χ² distribution with 2*q degrees
+// where χ²(α) is the upper α point of the χ² distribution with 2q degrees
 // of freedom and is obtained from Wilson and Hilferty’s approximation (cf.
 // Wilson and Hilferty, 1931)
 //
-//     χ²(α) = 2*q*(1 - 1/(9*q) + y(α) * sqrt(1/(9*q)))**3,
+//     χ²(α) = 2q (1 - 1/(9q) + y(α) sqrt(1/(9q)))^3,
 //
 // y(α) being Hastings’ approximation (cf. Hastings, 1955) for the upper α
 // point of the standard normal distribution. If χ²(α) < 0, then
 //
-//     x₀ = 1 - ((1 - α)*q*B(p, q))**(1/q).
+//     x₀ = 1 - ((1 - α)q B(p, q))^(1/q).
 //
-// Again if (4*p + 2*q - 2)/χ²(α) does not exceed 1, x₀ is obtained from
+// Again if (4p + 2q - 2)/χ²(α) does not exceed 1, x₀ is obtained from
 //
-//     x₀ = (α*p*B(p, q))**(1/p).
+//     x₀ = (αp B(p, q))^(1/p).
 //
 // The final solution is obtained by the Newton–Raphson method from the
 // relation
 //
-//     x[i] = x[i-1] - f(x[i-1])/f'(x[i-1])
+//                      f(x[i-1])
+//     x[i] = x[i-1] - ----------
+//                     f'(x[i-1])
 //
 // where
 //

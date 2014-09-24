@@ -3,7 +3,8 @@ package sfunc
 import (
 	"testing"
 
-	"github.com/go-math/prob/dist/uniform"
+	"github.com/go-math/prob"
+	"github.com/go-math/prob/uniform"
 	"github.com/go-math/support/assert"
 )
 
@@ -156,7 +157,7 @@ func TestInvCDF(t *testing.T) {
 func BenchmarkIncBeta(b *testing.B) {
 	p, q := 0.5, 1.5
 	logBeta := LogBeta(p, q)
-	points := uniform.New(0, 1).Sample(1000)
+	points := prob.Sample(uniform.New(0, 1), 1000)
 
 	b.ResetTimer()
 
@@ -170,7 +171,7 @@ func BenchmarkIncBeta(b *testing.B) {
 func BenchmarkInvIncBeta(b *testing.B) {
 	p, q := 0.5, 1.5
 	logBeta := LogBeta(p, q)
-	points := uniform.New(0, 1).Sample(1000)
+	points := prob.Sample(uniform.New(0, 1), 1000)
 
 	b.ResetTimer()
 

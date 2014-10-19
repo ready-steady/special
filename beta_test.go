@@ -8,7 +8,7 @@ import (
 	"github.com/go-math/support/assert"
 )
 
-func TestCDF(t *testing.T) {
+func TestIncBeta(t *testing.T) {
 	p, q := 2.0, 3.0
 	logBeta := LogBeta(p, q)
 
@@ -81,7 +81,7 @@ func TestCDF(t *testing.T) {
 	assert.AlmostEqual(actual, values, t)
 }
 
-func TestInvCDF(t *testing.T) {
+func TestInvIncBeta(t *testing.T) {
 	p, q := 1.0, 2.0
 	logBeta := LogBeta(p, q)
 

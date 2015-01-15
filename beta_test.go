@@ -1,10 +1,10 @@
-package sfunc
+package special
 
 import (
 	"testing"
 
-	"github.com/ready-steady/prob"
-	"github.com/ready-steady/prob/uniform"
+	"github.com/ready-steady/probability"
+	"github.com/ready-steady/probability/uniform"
 	"github.com/ready-steady/support/assert"
 )
 
@@ -157,7 +157,7 @@ func TestInvIncBeta(t *testing.T) {
 func BenchmarkIncBeta(b *testing.B) {
 	p, q := 0.5, 1.5
 	logBeta := LogBeta(p, q)
-	points := prob.Sample(uniform.New(0, 1), 1000)
+	points := probability.Sample(uniform.New(0, 1), 1000)
 
 	b.ResetTimer()
 
@@ -171,7 +171,7 @@ func BenchmarkIncBeta(b *testing.B) {
 func BenchmarkInvIncBeta(b *testing.B) {
 	p, q := 0.5, 1.5
 	logBeta := LogBeta(p, q)
-	points := prob.Sample(uniform.New(0, 1), 1000)
+	points := probability.Sample(uniform.New(0, 1), 1000)
 
 	b.ResetTimer()
 

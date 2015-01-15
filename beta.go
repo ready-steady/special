@@ -1,4 +1,4 @@
-package sfunc
+package special
 
 import (
 	"math"

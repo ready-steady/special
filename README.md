@@ -18,4 +18,4 @@ University.
 [wiki]: https://en.wikipedia.org/wiki/Special_functions
 [burkardt]: http://people.sc.fsu.edu/~jburkardt/i.html
 
-[doc]: http://godoc.org/github.com/ready-steady/sfunc
+[doc]: http://godoc.org/github.com/ready-steady/special

@@ -46,7 +46,7 @@ func TestIncBeta(t *testing.T) {
 	for i := range points {
 		actual[i] = IncBeta(points[i], p, q, logBeta)
 	}
-	assert.AlmostEqual(actual, values, t)
+	assert.EqualWithin(actual, values, 1e-15, t)
 
 	p, q = 0.1, 0.2
 	logBeta = LogBeta(p, q)
@@ -78,7 +78,7 @@ func TestIncBeta(t *testing.T) {
 	for i := range points {
 		actual[i] = IncBeta(points[i], p, q, logBeta)
 	}
-	assert.AlmostEqual(actual, values, t)
+	assert.EqualWithin(actual, values, 2e-15, t)
 }
 
 func TestInvIncBeta(t *testing.T) {
@@ -119,7 +119,7 @@ func TestInvIncBeta(t *testing.T) {
 	for i := range points {
 		actual[i] = InvIncBeta(points[i], p, q, logBeta)
 	}
-	assert.AlmostEqual(actual, values, t)
+	assert.EqualWithin(actual, values, 2e-15, t)
 
 	p, q = 0.2, 0.3
 	logBeta = LogBeta(p, q)
@@ -151,7 +151,7 @@ func TestInvIncBeta(t *testing.T) {
 	for i := range points {
 		actual[i] = InvIncBeta(points[i], p, q, logBeta)
 	}
-	assert.AlmostEqual(actual, values, t)
+	assert.EqualWithin(actual, values, 1e-14, t)
 }
 
 func BenchmarkIncBeta(b *testing.B) {

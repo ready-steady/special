@@ -6,8 +6,7 @@ The package provides [special functions][wiki].
 
 ## Acknowledgments
 
-The code is based on the work of [John Burkardt][burkardt] from Florida State
-University.
+The code is based on the work of [John Burkardt][burkardt].
 
 ## Contributing
 
@@ -16,6 +15,6 @@ University.
 3. Create a pull request.
 
 [wiki]: https://en.wikipedia.org/wiki/Special_functions
-[burkardt]: http://people.sc.fsu.edu/~jburkardt/i.html
+[burkardt]: http://people.sc.fsu.edu/~jburkardt
 
 [doc]: http://godoc.org/github.com/ready-steady/special

@@ -5,6 +5,7 @@ import (
 
 	"github.com/ready-steady/assert"
 	"github.com/ready-steady/probability"
+	"github.com/ready-steady/probability/generator"
 	"github.com/ready-steady/probability/uniform"
 )
 
@@ -157,7 +158,7 @@ func TestInvIncBeta(t *testing.T) {
 func BenchmarkIncBeta(b *testing.B) {
 	p, q := 0.5, 1.5
 	logBeta := LogBeta(p, q)
-	points := probability.Sample(uniform.New(0, 1), 1000)
+	points := probability.Sample(uniform.New(0, 1), generator.New(0), 1000)
 
 	b.ResetTimer()
 
@@ -171,7 +172,7 @@ func BenchmarkIncBeta(b *testing.B) {
 func BenchmarkInvIncBeta(b *testing.B) {
 	p, q := 0.5, 1.5
 	logBeta := LogBeta(p, q)
-	points := probability.Sample(uniform.New(0, 1), 1000)
+	points := probability.Sample(uniform.New(0, 1), generator.New(0), 1000)
 
 	b.ResetTimer()
 

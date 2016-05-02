@@ -42,7 +42,7 @@ import (
 // Soper (1921) demonstrated that the expansion of I(x, p, q) by “parts” and
 // “raising p” method as described above converges more rapidly than any other
 // series expansions.
-func IncBeta(x, p, q, logB float64) float64 {
+func IncBeta(x, p, q, lnBeta float64) float64 {
 	const (
 		acu = 0.1e-14
 	)
@@ -100,7 +100,7 @@ func IncBeta(x, p, q, logB float64) float64 {
 
 	// Remark AS R19 and Algorithm AS 109
 	// http://www.jstor.org/stable/2346887
-	α = α * math.Exp(p*math.Log(pbase)+(q-1)*math.Log(qbase)-logB) / p
+	α = α * math.Exp(p*math.Log(pbase)+(q-1)*math.Log(qbase)-lnBeta) / p
 
 	if flip {
 		return 1 - α
@@ -151,7 +151,7 @@ func IncBeta(x, p, q, logB float64) float64 {
 // where
 //
 //     f(x) = I(x, p, q) - α.
-func InvIncBeta(α, p, q, logB float64) float64 {
+func InvIncBeta(α, p, q, lnBeta float64) float64 {
 	const (
 		// Remark AS R83
 		// http://www.jstor.org/stable/2347779
@@ -193,11 +193,11 @@ func InvIncBeta(α, p, q, logB float64) float64 {
 		t := 1 / (9 * q)
 		t = 2 * q * math.Pow(1-t+y*math.Sqrt(t), 3)
 		if t <= 0 {
-			x = 1 - math.Exp((math.Log((1-α)*q)+logB)/q)
+			x = 1 - math.Exp((math.Log((1-α)*q)+lnBeta)/q)
 		} else {
 			t = 2 * (2*p + q - 1) / t
 			if t <= 1 {
-				x = math.Exp((math.Log(α*p) + logB) / p)
+				x = math.Exp((math.Log(α*p) + lnBeta) / p)
 			} else {
 				x = 1 - 2/(t+1)
 			}
@@ -224,8 +224,8 @@ outer:
 	for {
 		// Remark AS R19 and Algorithm AS 109
 		// http://www.jstor.org/stable/2346887
-		y = IncBeta(x, p, q, logB)
-		y = (y - α) * math.Exp(logB+(1-p)*math.Log(x)+(1-q)*math.Log(1-x))
+		y = IncBeta(x, p, q, lnBeta)
+		y = (y - α) * math.Exp(lnBeta+(1-p)*math.Log(x)+(1-q)*math.Log(1-x))
 
 		// Remark AS R83
 		// http://www.jstor.org/stable/2347779
@@ -277,11 +277,10 @@ outer:
 	}
 }
 
-// LogBeta computes the logarithm of the beta function.
-func LogBeta(x, y float64) float64 {
+// LnBeta computes the natural logarithm of the beta function.
+func LnBeta(x, y float64) float64 {
 	z, _ := math.Lgamma(x + y)
 	x, _ = math.Lgamma(x)
 	y, _ = math.Lgamma(y)
-
 	return x + y - z
 }

@@ -7,9 +7,37 @@ import (
 	"github.com/ready-steady/assert"
 )
 
+func BenchmarkIncBeta(b *testing.B) {
+	p, q := 0.5, 1.5
+	lnBeta := LnBeta(p, q)
+	points := generate(1000)
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		for _, x := range points {
+			IncBeta(x, p, q, lnBeta)
+		}
+	}
+}
+
+func BenchmarkInvIncBeta(b *testing.B) {
+	p, q := 0.5, 1.5
+	lnBeta := LnBeta(p, q)
+	points := generate(1000)
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		for _, α := range points {
+			InvIncBeta(α, p, q, lnBeta)
+		}
+	}
+}
+
 func TestIncBeta(t *testing.T) {
 	p, q := 2.0, 3.0
-	logBeta := LogBeta(p, q)
+	lnBeta := LnBeta(p, q)
 
 	points := []float64{
 		0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
@@ -43,12 +71,12 @@ func TestIncBeta(t *testing.T) {
 	actual := make([]float64, len(points))
 
 	for i := range points {
-		actual[i] = IncBeta(points[i], p, q, logBeta)
+		actual[i] = IncBeta(points[i], p, q, lnBeta)
 	}
 	assert.EqualWithin(actual, values, 1e-15, t)
 
 	p, q = 0.1, 0.2
-	logBeta = LogBeta(p, q)
+	lnBeta = LnBeta(p, q)
 
 	values = []float64{
 		0.000000000000000e+00,
@@ -75,14 +103,14 @@ func TestIncBeta(t *testing.T) {
 	}
 
 	for i := range points {
-		actual[i] = IncBeta(points[i], p, q, logBeta)
+		actual[i] = IncBeta(points[i], p, q, lnBeta)
 	}
 	assert.EqualWithin(actual, values, 2e-15, t)
 }
 
 func TestInvIncBeta(t *testing.T) {
 	p, q := 1.0, 2.0
-	logBeta := LogBeta(p, q)
+	lnBeta := LnBeta(p, q)
 
 	points := []float64{
 		0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
@@ -116,12 +144,12 @@ func TestInvIncBeta(t *testing.T) {
 	actual := make([]float64, len(points))
 
 	for i := range points {
-		actual[i] = InvIncBeta(points[i], p, q, logBeta)
+		actual[i] = InvIncBeta(points[i], p, q, lnBeta)
 	}
 	assert.EqualWithin(actual, values, 2e-15, t)
 
 	p, q = 0.2, 0.3
-	logBeta = LogBeta(p, q)
+	lnBeta = LnBeta(p, q)
 
 	values = []float64{
 		0.000000000000000e+00,
@@ -148,37 +176,9 @@ func TestInvIncBeta(t *testing.T) {
 	}
 
 	for i := range points {
-		actual[i] = InvIncBeta(points[i], p, q, logBeta)
+		actual[i] = InvIncBeta(points[i], p, q, lnBeta)
 	}
 	assert.EqualWithin(actual, values, 1e-14, t)
-}
-
-func BenchmarkIncBeta(b *testing.B) {
-	p, q := 0.5, 1.5
-	logBeta := LogBeta(p, q)
-	points := generate(1000)
-
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
-		for _, x := range points {
-			IncBeta(x, p, q, logBeta)
-		}
-	}
-}
-
-func BenchmarkInvIncBeta(b *testing.B) {
-	p, q := 0.5, 1.5
-	logBeta := LogBeta(p, q)
-	points := generate(1000)
-
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
-		for _, α := range points {
-			InvIncBeta(α, p, q, logBeta)
-		}
-	}
 }
 
 func generate(count uint) []float64 {

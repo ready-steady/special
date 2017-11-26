@@ -73,7 +73,7 @@ func TestIncBeta(t *testing.T) {
 	for i := range points {
 		actual[i] = IncBeta(points[i], p, q, lnBeta)
 	}
-	assert.EqualWithin(actual, values, 1e-15, t)
+	assert.Close(actual, values, 1e-15, t)
 
 	p, q = 0.1, 0.2
 	lnBeta = LnBeta(p, q)
@@ -105,7 +105,7 @@ func TestIncBeta(t *testing.T) {
 	for i := range points {
 		actual[i] = IncBeta(points[i], p, q, lnBeta)
 	}
-	assert.EqualWithin(actual, values, 2e-15, t)
+	assert.Close(actual, values, 2e-15, t)
 }
 
 func TestInvIncBeta(t *testing.T) {
@@ -146,7 +146,7 @@ func TestInvIncBeta(t *testing.T) {
 	for i := range points {
 		actual[i] = InvIncBeta(points[i], p, q, lnBeta)
 	}
-	assert.EqualWithin(actual, values, 2e-15, t)
+	assert.Close(actual, values, 2e-15, t)
 
 	p, q = 0.2, 0.3
 	lnBeta = LnBeta(p, q)
@@ -178,7 +178,7 @@ func TestInvIncBeta(t *testing.T) {
 	for i := range points {
 		actual[i] = InvIncBeta(points[i], p, q, lnBeta)
 	}
-	assert.EqualWithin(actual, values, 1e-14, t)
+	assert.Close(actual, values, 1e-14, t)
 }
 
 func generate(count uint) []float64 {
